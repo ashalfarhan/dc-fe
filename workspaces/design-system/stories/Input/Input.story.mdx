@@ -1,0 +1,53 @@
+import { useState } from 'react'
+import { Meta } from '@storybook/addon-docs'
+import { Input } from '../../src'
+import { PreviewItem, PreviewGroup } from '../utils'
+
+<Meta title="MDX/Input" />
+
+# Input
+
+<div style={{ display: 'flex', flexDirection: 'column', rowGap: 24 }}>
+  <PreviewGroup>
+    <PreviewItem label={'<Input />'}>
+      <Input />
+    </PreviewItem>
+    <PreviewItem label={'<Input isError />'}>
+      <Input isError />
+    </PreviewItem>
+    <PreviewItem label={'<Input disabled />'}>
+      <Input disabled />
+    </PreviewItem>
+  </PreviewGroup>
+  <PreviewGroup>
+    <PreviewItem label={'<Input helpText="Some interesting text" />'}>
+      <Input helpText="Some interesting text" />
+    </PreviewItem>
+    <PreviewItem label={'<Input helpText="Some interesting text" isError />'}>
+      <Input helpText="Some interesting text" isError />
+    </PreviewItem>
+  </PreviewGroup>
+  <PreviewGroup>
+    <PreviewItem label={'<Input value="Hello" />'}>
+      <Input value="Hello" />
+    </PreviewItem>
+  </PreviewGroup>
+  <PreviewGroup>
+    <PreviewItem label={'<Input size="sm" />'}>
+      <Input size="sm" />
+    </PreviewItem>
+    <PreviewItem label={'<Input size="md" />'}>
+      <Input size="md" />
+    </PreviewItem>
+  </PreviewGroup>
+  <PreviewGroup>
+    <PreviewItem label={'<Input fullWidth />'} style={{ flex: 1 }}>
+      <Input fullWidth />
+    </PreviewItem>
+  </PreviewGroup>
+  <PreviewGroup>
+    <PreviewItem label={'<Input multiline rows={4} />'}>
+      <Input multiline rows={4} />
+    </PreviewItem>
+  </PreviewGroup>
+</div>

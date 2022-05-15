@@ -1,0 +1,111 @@
+@import '../styles/variables.css';
+
+.Button-Color__base {
+  --bg-color: var(--bg-color-base);
+  --color: var(--black);
+}
+
+.Button-Color__primary {
+  --bg-color: var(--bg-color-primary);
+  --color: var(--white);
+}
+
+.Button-Color__secondary {
+  --bg-color: var(--bg-color-secondary);
+  --color: var(--white);
+}
+
+.Button-Color__danger {
+  --bg-color: var(--bg-color-danger);
+  --color: var(--white);
+}
+
+.MyButton {
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 0.5em 1em;
+  word-break: keep-all;
+  transition-property: background-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+  font-weight: 500;
+  font-family: 'Noto Sans JP', sans-serif;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.2rem;
+  display: inlie-flex;
+}
+
+.Button-WithIcon {
+  display: flex;
+}
+
+.MyButton:disabled {
+  cursor: not-allowed;
+  color: #9e9e9e;
+}
+
+.Button-NoShadow {
+  box-shadow: none !important;
+}
+
+.Button-Size__sm {
+  --size: var(--size-sm);
+  font-size: var(--size);
+}
+
+.Button-Size__md {
+  --size: var(--size-md);
+  font-size: var(--size);
+}
+
+.Button-Size__lg {
+  --size: var(--size-lg);
+  font-size: var(--size);
+}
+
+.Button-Variant__fill {
+  background-color: var(--bg-color);
+  color: var(--color);
+  box-shadow: 0 2px 3px 0 var(--bg-color);
+}
+
+.Button-Variant__outline {
+  background-color: transparent;
+  color: var(--bg-color);
+  outline: 1px solid var(--bg-color);
+  box-shadow: 0 2px 3px 0 transparent;
+}
+
+.Button-Variant__text {
+  background-color: transparent;
+  color: var(--bg-color);
+  box-shadow: 0 2px 3px 0 transparent;
+}
+
+.Button-Color__base:hover {
+  background-color: rgba(174, 174, 174, 0.1);
+}
+.Button-Color__primary:hover {
+  background-color: rgba(0, 57, 203, 0.1);
+}
+.Button-Color__secondary:hover {
+  background-color: rgba(28, 49, 58, 0.1);
+}
+.Button-Color__danger:hover {
+  background-color: rgba(154, 0, 7, 0.1);
+}
+
+.Button-Color__base.Button-Variant__fill:hover {
+  background-color: rgba(174, 174, 174, 1);
+}
+.Button-Color__primary.Button-Variant__fill:hover {
+  background-color: rgba(0, 57, 203, 1);
+}
+.Button-Color__secondary.Button-Variant__fill:hover {
+  background-color: rgba(28, 49, 58, 1);
+}
+.Button-Color__danger.Button-Variant__fill:hover {
+  background-color: rgba(154, 0, 7, 1);
+}

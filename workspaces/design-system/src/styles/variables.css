@@ -1,0 +1,16 @@
+:root {
+  /* Bg Colors */
+  --bg-color-base: rgba(224, 224, 224, 1);
+  --bg-color-primary: rgba(41, 98, 255, 1);
+  --bg-color-secondary: rgba(69, 90, 100, 1);
+  --bg-color-danger: rgba(211, 47, 47, 1);
+
+  /* Font Colors */
+  --black: rgb(63, 63, 63);
+  --white: rgb(255, 255, 255);
+
+  /* Sizes */
+  --size-sm: 14px;
+  --size-md: 16px;
+  --size-lg: 18px;
+}

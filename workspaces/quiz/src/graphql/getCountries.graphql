@@ -1,0 +1,15 @@
+query GetCountries($limit: Int) {
+  getCountries(limit: $limit) {
+    name
+    capital
+    flag
+  }
+}
+
+query GetRandomCountries($limit: Int) {
+  getRandomCountries(limit: $limit) {
+    name
+    capital
+    flag
+  }
+}

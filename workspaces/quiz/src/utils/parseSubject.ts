@@ -1,0 +1,1 @@
+export const parseSubject = ['A', 'B', 'C', 'D'] as const

@@ -1,0 +1,82 @@
+@import '../styles/variables.css';
+
+.Input__default {
+  --bg-color: var(--bg-color-primary);
+  --color: var(--black);
+  --outline-color: #828282;
+}
+
+.Input__error {
+  --bg-color: var(--bg-color-danger);
+  --color: var(--bg-color-danger);
+  --outline-color: var(--bg-color-danger);
+}
+
+.Input-Size__sm {
+  --size: var(--size-sm);
+}
+
+.Input-Size__md {
+  --size: var(--size-md);
+}
+
+.Input-Size__lg {
+  --size: var(--size-lg);
+}
+
+.Wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: calc(var(--size) * 0.5);
+  font-weight: 500;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.MyInput {
+  border: none;
+  outline: 1px solid var(--outline-color);
+  padding-top: var(--size);
+  padding-bottom: var(--size);
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 6px;
+  transition: outline 200ms;
+}
+
+.MyInput:hover {
+  outline: 1px solid #333;
+}
+
+.MyInput:focus {
+  outline: 1px solid var(--bg-color);
+}
+
+.MyInput:disabled {
+  cursor: not-allowed;
+  color: #828282;
+  outline: 1px solid #f2f2f2;
+}
+
+.HelpText {
+  font-size: calc(var(--size) * 0.725);
+  color: var(--color);
+}
+
+.Input-Label {
+  color: var(--color);
+  font-size: calc(var(--size) * 0.875);
+}
+
+.Wrapper.Input__fullWidth {
+  width: 100%;
+}
+
+.Wrapper.Input__fullWidth > .MyInput {
+  flex: 1;
+  align-self: stretch;
+}
+
+.Wrapper.Input__disabled .Input-Label {
+  color: #828282;
+}

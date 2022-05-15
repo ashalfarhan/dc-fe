@@ -1,0 +1,51 @@
+import { Meta, ArgsTable, Canvas, Story } from '@storybook/addon-docs'
+import { Button } from '../../src'
+const Template = (args) => <Button {...args} />
+const variants = ['fill', 'outline', 'text']
+const Colors = { base: '', primary: '', secondary: '', danger: '' }
+
+<Meta
+  title="Preview/Button"
+  component={Button}
+  parameters={{ layout: 'centered' }}
+/>
+
+# Button
+
+A Button component
+
+<Canvas>
+  <Story name="Fill">
+    <div style={{ display: 'flex', columnGap: 8 }}>
+      {Object.keys(Colors).map((color, i) => (
+        <Button variant="fill" color={color} key={`Button-fill__${i}`}>
+          Fill
+        </Button>
+      ))}
+    </div>
+  </Story>
+  <Story name="Outline">
+    <div style={{ display: 'flex', columnGap: 8 }}>
+      {Object.keys(Colors).map((color, i) => (
+        <Button variant="outline" color={color} key={`Button-outline__${i}`}>
+          Outline
+        </Button>
+      ))}
+    </div>
+  </Story>
+  <Story name="Text">
+    <div style={{ display: 'flex', columnGap: 8 }}>
+      {Object.keys(Colors).map((color, i) => (
+        <Button variant="text" color={color} key={`Button-text__${i}`}>
+          Text
+        </Button>
+      ))}
+    </div>
+  </Story>
+</Canvas>
+
+# Props
+
+Here's the Button Props
+
+<ArgsTable of={Button} />

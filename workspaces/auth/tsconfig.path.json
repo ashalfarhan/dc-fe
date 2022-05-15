@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@network": ["./network"],
+      "@models": ["./models"],
+      "@state": ["./state"],
+      "@hooks": ["./hooks"],
+      "@components": ["./components"],
+      "@utils": ["./utils"],
+      "@mocks": ["./mocks"],
+      "@test-utils": ["./test-utils"]
+    }
+  }
+}
