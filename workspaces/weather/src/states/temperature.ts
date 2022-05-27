@@ -1,6 +1,16 @@
-import { atom } from 'recoil'
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
 
-export const temperatureState = atom<'C' | 'F'>({
-  key: 'temperature',
-  default: 'C',
-})
+type Temperature = 'C' | 'F';
+
+type TemperatureState = {
+  temp: Temperature;
+  change: (temp: Temperature) => void;
+};
+
+export const useTemperature = create<TemperatureState>()(
+  persist(set => ({
+    temp: 'C',
+    change: temp => set({ temp }),
+  }))
+);

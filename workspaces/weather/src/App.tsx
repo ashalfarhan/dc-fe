@@ -1,74 +1,67 @@
-import { useToggle } from '@ashalfarhan/hooks'
-import { BiCurrentLocation } from 'react-icons/bi'
-import Sidebar from './components/Sidebar'
-import Highlight from './components/Highlight'
-import { WeatherCard, TodayCard } from './components/WeatherCard'
-import useGeolocation from './hooks/useGeolocation'
-import { Suspense, useEffect } from 'react'
-import { useSetRecoilState } from 'recoil'
-import { BsCloudSun } from 'react-icons/bs'
-import { userGeoState } from './states'
-import { AiFillCloud } from 'react-icons/ai'
-import TempSwitcher from './components/Utils/TempSwticher'
+import { useToggle } from '@ashalfarhan/hooks';
+import { BiCurrentLocation } from 'react-icons/bi';
+import { AiFillCloud } from 'react-icons/ai';
+import useSWR from 'swr';
+import {
+  Forecast,
+  TodayCard,
+  Highlight,
+  TempSwitcher,
+  Sidebar,
+} from './components';
+import { CurrentResponse } from './types';
+import { fetcher } from './utils';
+import { usePosition } from './states';
 
 function App() {
-  const geo = useGeolocation()
-  const { open, onClose, onOpen } = useToggle()
-  const setGeoState = useSetRecoilState(userGeoState)
-
-  useEffect(() => {
-    if (geo.status !== 'success') return
-
-    setGeoState(geo.state)
-  }, [geo])
-
+  const { open, onClose, onOpen } = useToggle();
+  const { getCurrentPosition, position } = usePosition(
+    ({ getCurrentPosition, position }) => ({ getCurrentPosition, position })
+  );
+  const { data } = useSWR<CurrentResponse>(() => {
+    let q = 'auto:ip';
+    if (position) {
+      q = [position.latitude, position.longitude].join(',');
+    }
+    return '/api/current.json?q=' + q;
+  }, fetcher);
   return (
-    <div className="flex md:flex-row flex-col items-stretch">
-      <Sidebar onClose={onClose} isOpen={open} />
-      <aside className="md:w-1/3 w-full bg-card p-8 overflow-x-hidden min-h-screen flex flex-col">
+    <div className="h-screen w-screen grid md:grid-cols-3 overflow-hidden">
+      <aside className="bg-card p-8 overflow-x-hidden relative w-full flex flex-col">
+        <Sidebar onClose={onClose} isOpen={open} />
         <div className="flex justify-between items-center">
           <button className="bg-accent text-white px-4 py-2" onClick={onOpen}>
             Search for places
           </button>
-          <button className="bg-accent text-white rounded-full p-2">
+          <button
+            className="bg-accent text-white rounded-full p-2"
+            onClick={getCurrentPosition}
+          >
             <BiCurrentLocation size={24} />
           </button>
         </div>
-        <Suspense
-          fallback={
-            <AiFillCloud size={130} className="fill-slate-500 animate-bounce m-auto flex-1" />
-          }
-        >
-          <TodayCard />
-        </Suspense>
+        <div className="grid grid-cols-2 gap-x-60 gap-y-12 absolute inset-0 m-auto max-h-min">
+          <AiFillCloud size={140} className="fill-slate-700 animate-pulse" />
+          <AiFillCloud
+            size={140}
+            className="fill-slate-700 animate-pulse scale-125"
+          />
+          <AiFillCloud
+            size={140}
+            className="fill-slate-700 animate-pulse scale-150"
+          />
+          <AiFillCloud size={140} className="fill-slate-700 animate-pulse" />
+        </div>
+        {data && <TodayCard current={data.current} location={data.location} />}
       </aside>
-      <main className="flex-auto px-8 md:px-24 py-8">
+      <main className="md:col-span-2 p-8 w-full">
         <TempSwitcher />
-        <ConsolidatedWeather />
-        <Highlight />
-        <div className="text-center mt-10">created by ashal</div>
+        <Forecast />
+        {data && <Highlight today={data?.current} />}
+        <div className="text-center mt-4">created by ashal</div>
       </main>
     </div>
-  )
+  );
 }
 
-function ConsolidatedWeather() {
-  return (
-    <div className="flex gap-9 mt-6 flex-wrap">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Suspense
-          key={i}
-          fallback={
-            <div className="bg-card px-12 py-14 flex-1">
-              <BsCloudSun className="animate-pulse" size={24} />
-            </div>
-          }
-        >
-          <WeatherCard day={i + 1} />
-        </Suspense>
-      ))}
-    </div>
-  )
-}
-
-export default App
+export default App;
