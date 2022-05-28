@@ -1,10 +1,8 @@
-import { SearchResponse } from '@app/types';
-import { fetcher } from '@app/utils';
+import { useSearchLocation } from '@app/services';
 import { useDebouncedValue } from '@ashalfarhan/hooks';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
-import useSWR from 'swr';
 import { SearchResultItem } from './SearchResults';
 
 type SidebarProps = {
@@ -15,11 +13,7 @@ type SidebarProps = {
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const [query, setQuery] = useState('');
   const debouncedSearch = useDebouncedValue(query);
-  const { data } = useSWR<SearchResponse>(
-    () => debouncedSearch && `/api/search.json?q=${debouncedSearch}`,
-    fetcher
-  );
-  const isNotFound = !data || !data.length;
+  const { data, isNotFound } = useSearchLocation(debouncedSearch);
   return (
     <div
       className={clsx(

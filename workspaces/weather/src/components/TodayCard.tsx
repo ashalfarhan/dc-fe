@@ -1,14 +1,18 @@
 import { IoLocationSharp } from 'react-icons/io5';
 import { CurrentResponse } from '@app/types';
 import { dateFormat } from '@app/utils';
+import { useTemperature } from '@app/states';
 
 export const TodayCard = ({ current, location }: CurrentResponse) => {
+  const temp = useTemperature(state => state.temp);
   return (
     <div className="relative flex-1 flex flex-col justify-center">
       <div className="flex flex-col items-center gap-8">
         <div>
-          <span className="text-9xl">{current.temp_c}</span>
-          <span className="text-5xl">°C</span>
+          <span className="text-9xl">
+            {temp === 'C' ? current.temp_c : current.temp_f}
+          </span>
+          <span className="text-5xl">°{temp}</span>
         </div>
         <div className="inline-flex items-center gap-2">
           <img
@@ -18,7 +22,7 @@ export const TodayCard = ({ current, location }: CurrentResponse) => {
             width={64}
             className="mx-auto"
           />
-          <span className="text-3xl text-accent">{current.condition.text}</span>
+          <span className="text-2xl text-accent">{current.condition.text}</span>
         </div>
         <div className="flex space-x-4 text-accent">
           <span>Today</span>

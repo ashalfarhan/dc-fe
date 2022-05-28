@@ -1,7 +1,6 @@
 import { useToggle } from '@ashalfarhan/hooks';
 import { BiCurrentLocation } from 'react-icons/bi';
 import { AiFillCloud } from 'react-icons/ai';
-import useSWR from 'swr';
 import {
   Forecast,
   TodayCard,
@@ -9,25 +8,16 @@ import {
   TempSwitcher,
   Sidebar,
 } from './components';
-import { CurrentResponse } from './types';
-import { fetcher } from './utils';
 import { usePosition } from './states';
+import { useTodayTemp } from './services';
 
 function App() {
   const { open, onClose, onOpen } = useToggle();
-  const { getCurrentPosition, position } = usePosition(
-    ({ getCurrentPosition, position }) => ({ getCurrentPosition, position })
-  );
-  const { data } = useSWR<CurrentResponse>(() => {
-    let q = 'auto:ip';
-    if (position) {
-      q = [position.latitude, position.longitude].join(',');
-    }
-    return '/api/current.json?q=' + q;
-  }, fetcher);
+  const getCurrentPosition = usePosition(state => state.getCurrentPosition);
+  const { data } = useTodayTemp();
   return (
-    <div className="h-screen w-screen grid md:grid-cols-3 overflow-hidden">
-      <aside className="bg-card p-8 overflow-x-hidden relative w-full flex flex-col">
+    <div className="md:h-screen w-screen grid md:grid-cols-3 overflow-hidden">
+      <aside className="bg-card p-8 overflow-x-hidden relative w-full flex flex-col md:h-auto min-h-screen">
         <Sidebar onClose={onClose} isOpen={open} />
         <div className="flex justify-between items-center">
           <button className="bg-accent text-white px-4 py-2" onClick={onOpen}>
@@ -54,10 +44,12 @@ function App() {
         </div>
         {data && <TodayCard current={data.current} location={data.location} />}
       </aside>
-      <main className="md:col-span-2 p-8 w-full">
-        <TempSwitcher />
-        <Forecast />
-        {data && <Highlight today={data?.current} />}
+      <main className="md:col-span-2 p-8 w-full flex flex-col">
+        <div className="flex-1">
+          <TempSwitcher />
+          <Forecast />
+          {data && <Highlight today={data.current} />}
+        </div>
         <div className="text-center mt-4">created by ashal</div>
       </main>
     </div>

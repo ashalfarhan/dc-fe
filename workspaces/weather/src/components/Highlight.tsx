@@ -1,10 +1,11 @@
 import { Current } from '@app/types';
+import { RiCompassDiscoverFill } from 'react-icons/ri';
 
 export const Highlight = ({ today }: { today: Current }) => {
   return (
     <div className="mt-6">
       <h1 className="font-bold text-md md:text-xl">Today's Hightlights</h1>
-      <div className="grid grid-cols-2 gap-8 mt-6">
+      <div className="grid md:grid-cols-2 gap-8 mt-6">
         <div className="bg-card px-5 py-6 flex flex-col items-center">
           <h1>Visibility</h1>
           <HighlightItem unit="miles" value={today.vis_miles} />
@@ -16,6 +17,13 @@ export const Highlight = ({ today }: { today: Current }) => {
         <div className="bg-card px-5 py-6 flex flex-col items-center">
           <h1>Wind Status</h1>
           <HighlightItem unit="mph" value={today.wind_mph} />
+          <div className="flex space-x-4 items-center mt-4">
+            <RiCompassDiscoverFill
+              size={32}
+              style={{ transform: `rotate(${today.wind_degree}deg)` }}
+            />
+            <span>{today.wind_dir}</span>
+          </div>
         </div>
         <div className="bg-card px-5 py-6 flex flex-col items-center">
           <h1>Humidity</h1>
