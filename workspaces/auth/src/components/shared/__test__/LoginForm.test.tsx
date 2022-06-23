@@ -55,7 +55,7 @@ describe('LoginForm with `userEvent`', () => {
     await userEvent.type(passwordInput, 'pass');
     await userEvent.click(submitButton);
     expect(screen.getByRole('alert')).toBeInTheDocument();
-    expect(screen.getByRole('alert')).toHaveTextContent(/8 characters/i);
+    expect(screen.getByRole('alert')).toHaveTextContent(/8 character\(s\)/i);
 
     expect(submitButton).not.toBeDisabled();
     expect(onSubmit).not.toHaveBeenCalled();
